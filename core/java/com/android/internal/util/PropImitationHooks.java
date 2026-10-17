@@ -67,6 +67,10 @@ public class PropImitationHooks {
             "persist.sys.pihooks.disable.gms_key_attestation_block", false);
     private static final String DATA_FILE = "gms_certified_props.json";
 
+    // Pixel 1 spoofing for Google Photos (unlimited original quality backup). Off by
+    // default: current Google Photos versions keep asking for an update on a "Pixel 1".
+    private static final String PROP_GPHOTOS_SPOOF = "persist.sys.pixelos.gphotos_spoof";
+
     private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_FINSKY = "com.android.vending";
     private static final String PACKAGE_GMS = "com.google.android.gms";
@@ -140,7 +144,8 @@ public class PropImitationHooks {
         sProcessName = processName;
         sIsGms = packageName.equals(PACKAGE_GMS) && processName.equals(PROCESS_GMS_UNSTABLE);
         sIsFinsky = packageName.equals(PACKAGE_FINSKY);
-        sIsPhotos = packageName.equals(PACKAGE_GPHOTOS);
+        sIsPhotos = packageName.equals(PACKAGE_GPHOTOS)
+                && SystemProperties.getBoolean(PROP_GPHOTOS_SPOOF, false);
 
         /* Set Certified Properties for GMSCore
          * Set Stock Fingerprint for ARCore

@@ -33,5 +33,7 @@ class DefaultLargeTilesRepositoryImpl @Inject constructor() : DefaultLargeTilesR
             TileSpec.create("bt"),
             TileSpec.create("dnd"),
             TileSpec.create("cast"),
+            // Xiaomi Pad 7 Pro (muyu): performance tile from XiaomiParts
+            TileSpec.create("custom(com.xiaomi.settings/.thermal.PerformanceTileService)"),
         )
 }

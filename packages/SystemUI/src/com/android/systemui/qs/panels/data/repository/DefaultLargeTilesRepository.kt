@@ -35,7 +35,7 @@ interface DefaultLargeTilesRepository {
 class DefaultLargeTilesRepositoryImpl @Inject constructor(@Main resources: Resources) :
     DefaultLargeTilesRepository {
     override val defaultLargeTiles =
-        if (QsSplitInternetTile.isEnabled) {
+        (if (QsSplitInternetTile.isEnabled) {
             resources
                 .getStringArray(R.array.quick_settings_large_tiles_default_split)
                 .map(TileSpec::create)
@@ -47,5 +47,12 @@ class DefaultLargeTilesRepositoryImpl @Inject constructor(@Main resources: Resou
                 TileSpec.create("dnd"),
                 TileSpec.create("cast"),
             )
-        }
+        }) + MUYU_PERFORMANCE_TILE
+
+    private companion object {
+        // Xiaomi Pad 7 Pro (muyu): performance tile from XiaomiParts. Its subtitle shows
+        // the active thermal profile, which small tiles hide.
+        val MUYU_PERFORMANCE_TILE =
+            TileSpec.create("custom(com.xiaomi.settings/.thermal.PerformanceTileService)")
+    }
 }
